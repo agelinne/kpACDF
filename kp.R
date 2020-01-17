@@ -7,6 +7,14 @@ p_load(pacman, dplyr, GGally, ggplot2, ggthemes,
 
 #START HERE
 #import KP data set
-kp_csv <- import("C:/Users/safranco/Desktop/KP ACDF/kp_spine.csv")
+kp_csv <- import("kp_spine.csv")
+df <- data.frame(kp_csv)
 
-#test type 2
+#data clean-up
+df$los <- as.numeric(df$los)
+
+##ggplots
+ggplot(data=df, aes(x=los,y=levels,color=trauma)) + geom_point() + geom_smooth(aes(group=trauma), method = lm)
+ggplot(data=df, aes(x=age,y=levels,color=trauma)) + geom_point()
+ggplot(df, aes(outcome,age)) + geom_bar(stat = "summary", fun.y = "mean")
+
