@@ -9,4 +9,4 @@ p_load(pacman, dplyr, GGally, ggplot2, ggthemes,
 #import KP data set
 kp_csv <- import("C:/Users/safranco/Desktop/KP ACDF/kp_spine.csv")
 
-#test
+#test type 2
