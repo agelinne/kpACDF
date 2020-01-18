@@ -33,6 +33,12 @@ summary_factorlist(df,dependent, explanatory,
 explanatory = c("age","levels","corp","sex","los","trauma")
 dependent = 'out'
 finalfit(df,dependent, explanatory, metrics=TRUE)
+
+#Regression Table dysphagia (only signficant variables)
+explanatory = c("corp","los","trauma")
+dependent = 'out'
+finalfit(df,dependent, explanatory, metrics=TRUE)
+
 sink()
                      
 ##ggplots
