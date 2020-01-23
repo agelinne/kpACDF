@@ -1,6 +1,27 @@
+Levene's Test for Homogeneity of Variance (center = median)
+       Df F value Pr(>F)
+group   3  0.3895 0.7608
+      146               
+             Df Sum Sq Mean Sq F value Pr(>F)
+outcome       3    1.7  0.5661   0.718  0.543
+Residuals   146  115.1  0.7882               
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = lev ~ outcome, data = df)
+
+$outcome
+           diff        lwr      upr     p adj
+2-1  0.10423588 -0.2919503 0.500422 0.9031442
+3-1  0.62209302 -0.5580656 1.802252 0.5202074
+4-1  0.12209302 -1.0580656 1.302252 0.9931742
+3-2  0.51785714 -0.6762683 1.711983 0.6734576
+4-2  0.01785714 -1.1762683 1.211983 0.9999788
+4-3 -0.50000000 -2.1314860 1.131486 0.8559406
+
    Dependent: outcome                         1           2           3           4      p
 1                 age     Mean (SD) 51.7 (10.3) 55.5 (10.7) 62.5 (18.4) 44.2 (16.6)  0.215
-4              levels             1   20 (23.3)   13 (23.2)    1 (25.0)    1 (25.0)  0.195
+4                 lev             1   20 (23.3)   13 (23.2)    1 (25.0)    1 (25.0)  0.195
 5                                 2   38 (44.2)   25 (44.6)     0 (0.0)    1 (25.0)       
 6                                 3   25 (29.1)   10 (17.9)    2 (50.0)    2 (50.0)       
 7                                 4     3 (3.5)    8 (14.3)    1 (25.0)     0 (0.0)       
@@ -14,7 +35,7 @@
 [[1]]
    Dependent: out               Mean (sd)     Coefficient (univariable)    Coefficient (multivariable)
 1             age       [23,90] 1.5 (0.7) 0.01 (-0.00 to 0.02, p=0.293)   0.01 (0.00 to 0.02, p=0.033)
-5          levels             1 1.5 (0.7)                             -                              -
+5             lev             1 1.5 (0.7)                             -                              -
 6                             2 1.4 (0.6)                             -                              -
 7                             3 1.5 (0.8)                             -                              -
 8                             4 1.8 (0.6)                             -                              -
@@ -29,4 +50,79 @@
 
 [[2]]
 [1] "Number in dataframe = 150, Number in model = 150, Missing = 0, Log-likelihood = -125.53, AIC = 267.1, R-squared = 0.33, Adjusted R-squared = 0.3"
+
+[[1]]
+  Dependent: out               Mean (sd)    Coefficient (univariable)   Coefficient (multivariable)
+2           corp No Corpectomy 1.5 (0.7)                            -                             -
+1                   Corpectomy 2.3 (1.2) 0.84 (0.07 to 1.62, p=0.034)  0.91 (0.25 to 1.58, p=0.008)
+3            los        [0,90] 1.5 (0.7) 0.04 (0.03 to 0.05, p<0.001)  0.04 (0.02 to 0.05, p<0.001)
+4         trauma             E 1.5 (0.6)                            -                             -
+5                            T 2.4 (1.5) 0.97 (0.47 to 1.47, p<0.001) 0.04 (-0.50 to 0.58, p=0.890)
+
+[[2]]
+[1] "Number in dataframe = 150, Number in model = 150, Missing = 0, Log-likelihood = -128.41, AIC = 266.8, R-squared = 0.3, Adjusted R-squared = 0.29"
+
+Levene's Test for Homogeneity of Variance (center = median)
+       Df F value Pr(>F)
+group   3  0.3895 0.7608
+      146               
+             Df Sum Sq Mean Sq F value Pr(>F)
+outcome       3    1.7  0.5661   0.718  0.543
+Residuals   146  115.1  0.7882               
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = lev ~ outcome, data = df)
+
+$outcome
+           diff        lwr      upr     p adj
+2-1  0.10423588 -0.2919503 0.500422 0.9031442
+3-1  0.62209302 -0.5580656 1.802252 0.5202074
+4-1  0.12209302 -1.0580656 1.302252 0.9931742
+3-2  0.51785714 -0.6762683 1.711983 0.6734576
+4-2  0.01785714 -1.1762683 1.211983 0.9999788
+4-3 -0.50000000 -2.1314860 1.131486 0.8559406
+
+   Dependent: outcome                         1           2           3           4      p
+1                 age     Mean (SD) 51.7 (10.3) 55.5 (10.7) 62.5 (18.4) 44.2 (16.6)  0.215
+4                 lev             1   20 (23.3)   13 (23.2)    1 (25.0)    1 (25.0)  0.195
+5                                 2   38 (44.2)   25 (44.6)     0 (0.0)    1 (25.0)       
+6                                 3   25 (29.1)   10 (17.9)    2 (50.0)    2 (50.0)       
+7                                 4     3 (3.5)    8 (14.3)    1 (25.0)     0 (0.0)       
+2                corp No Corpectomy   85 (98.8)  56 (100.0)    2 (50.0)   4 (100.0) <0.001
+3                        Corpectomy     1 (1.2)     0 (0.0)    2 (50.0)     0 (0.0)       
+9                 sex        Female   27 (31.4)   16 (28.6)    1 (25.0)    1 (25.0)  0.973
+10                             Male   59 (68.6)   40 (71.4)    3 (75.0)    3 (75.0)       
+8                 los     Mean (SD)   1.5 (3.8)   1.2 (0.7)   4.2 (5.9) 50.0 (30.2) <0.001
+11             trauma             E   83 (96.5)   55 (98.2)   4 (100.0)    1 (25.0) <0.001
+12                                T     3 (3.5)     1 (1.8)     0 (0.0)    3 (75.0)       
+[[1]]
+   Dependent: out               Mean (sd)     Coefficient (univariable)    Coefficient (multivariable)
+1             age       [23,90] 1.5 (0.7) 0.01 (-0.00 to 0.02, p=0.293)   0.01 (0.00 to 0.02, p=0.033)
+5             lev             1 1.5 (0.7)                             -                              -
+6                             2 1.4 (0.6)                             -                              -
+7                             3 1.5 (0.8)                             -                              -
+8                             4 1.8 (0.6)                             -                              -
+3            corp No Corpectomy 1.5 (0.7)                             -                              -
+2                    Corpectomy 2.3 (1.2)  0.84 (0.07 to 1.62, p=0.034)   0.96 (0.30 to 1.63, p=0.005)
+10            sex        Female 1.5 (0.7)                             -                              -
+11                         Male 1.5 (0.7) 0.06 (-0.18 to 0.30, p=0.640) -0.00 (-0.21 to 0.20, p=0.974)
+9             los        [0,90] 1.5 (0.7)  0.04 (0.03 to 0.05, p<0.001)   0.04 (0.02 to 0.05, p<0.001)
+12         trauma             E 1.5 (0.6)                             -                              -
+13                            T 2.4 (1.5)  0.97 (0.47 to 1.47, p<0.001)  0.15 (-0.39 to 0.69, p=0.585)
+4            <NA>          <NA>      <NA> 0.07 (-0.06 to 0.19, p=0.291)  0.03 (-0.08 to 0.14, p=0.603)
+
+[[2]]
+[1] "Number in dataframe = 150, Number in model = 150, Missing = 0, Log-likelihood = -125.53, AIC = 267.1, R-squared = 0.33, Adjusted R-squared = 0.3"
+
+[[1]]
+  Dependent: out               Mean (sd)    Coefficient (univariable)   Coefficient (multivariable)
+2           corp No Corpectomy 1.5 (0.7)                            -                             -
+1                   Corpectomy 2.3 (1.2) 0.84 (0.07 to 1.62, p=0.034)  0.91 (0.25 to 1.58, p=0.008)
+3            los        [0,90] 1.5 (0.7) 0.04 (0.03 to 0.05, p<0.001)  0.04 (0.02 to 0.05, p<0.001)
+4         trauma             E 1.5 (0.6)                            -                             -
+5                            T 2.4 (1.5) 0.97 (0.47 to 1.47, p<0.001) 0.04 (-0.50 to 0.58, p=0.890)
+
+[[2]]
+[1] "Number in dataframe = 150, Number in model = 150, Missing = 0, Log-likelihood = -128.41, AIC = 266.8, R-squared = 0.3, Adjusted R-squared = 0.29"
 
