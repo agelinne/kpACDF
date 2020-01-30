@@ -46,38 +46,47 @@ explanatory = c("corp","los","trauma")
 dependent = 'out'
 finalfit(df,dependent, explanatory, metrics=TRUE)
 
-#--------------------dysphagia vs no dysphagia analysis, POD < 30--------------------------------#
-df$out.abrev <- ifelse(df$outcome == 1 | df$outcome == 2, df$outcome, NA)
-df$out.abrev <- ifelse(df$out.abrev == 2, 1, 0)
+#--------------------dysphagia vs no dysphagia analysis -------------------------------#
+df$out.abrev <- ifelse(df$outcome == 2 | df$outcome == 3, 1, 0)
+df$out.abrev <- ifelse(df$outcome == 4, NA, df$out.abrev)
 df$out.abrev <- factor(df$out.abrev, levels = c("0","1"), labels = c("No Dysphagia", "Dysphagia"))
-df$los.abrev <- ifelse(df$los <= 30, df$los, NA)
+#df$los.abrev <- ifelse(df$los <= 30, df$los, NA)
+df.E <- df[ which(df$los != 36), ]
+df.na <- df.E[ which(!is.na(df.E$out.abrev)), ]
 
-##Summary Tables dysphagia (2 outcomes of dysphagia @ POD 21 vs no dyspagia)
+##Summary Tables dysphagia (2 outcomes of dysphagia vs no dyspagia, excluding those unable to be assessed)
+sink(file="simple.txt")
 #Summary Tables dysphagia
-explanatory = c("age","lev","corp","sex","los.abrev","trauma")
+explanatory = c("age","lev","corp","sex","los","trauma")
 dependent = 'out.abrev'
-summary_factorlist(df,dependent, explanatory,
-                   p=TRUE, add_dependent_label=TRUE, cont = "mean", na_to_missing = TRUE)
+summary_factorlist(df.na,dependent, explanatory,
+                   p=TRUE, add_dependent_label=TRUE, p_cont_para = "t.test",
+                   column = FALSE,  total_col = TRUE, add_col_totals = TRUE,  
+                   add_row_totals = TRUE, digits=c(1,2,3,4))
 
 #Regression Table dysphagia
-explanatory = c("age","lev","corp","sex","los.abrev","trauma")
+df.na$lev.f <- as.factor(df.na$lev)
+explanatory = c("age","lev.f","los")
 dependent = 'out.abrev'
-finalfit(df,dependent, explanatory, metrics=TRUE, na_to_missing = TRUE)
+finalfit(df.na,dependent, explanatory, metrics=TRUE)
+sink()
 
 #ANOVA levels to outcome
 leveneTest(lev~out.abrev, data=df)
 lev.aov <- aov(lev ~ out.abrev, data = df)
 summary(lev.aov)
 TukeyHSD(lev.aov)
-ggboxplot(df, x = "out.abrev", y = "lev", order = c("1","2"))
-
 
 sink()
                     
 ##ggplots
-ggplot(data=na.omit(df), aes(x=los.abrev,y=age,color=out.abrev)) + geom_point() + geom_smooth(method = lm)
-p <- ggplot(data=df, aes(x=age,y=levels)) + geom_point() + geom_smooth(method = "auto")
-facet(p,facet.by = "outcome")
+
+ggplot(na.omit(df.E), aes(x=los,y=age,color=out.abrev)) + geom_point() + geom_smooth(method = lm)
+
+p <- ggplot(df.na, aes(x=age,y=levels)) + geom_point() + geom_smooth(method = "auto")
+facet(p,facet.by = "out.abrev")
+
+ggboxplot(df.na, x = "out.abrev", y = "los")
 
 #remove packages
 p_unload(all) 
