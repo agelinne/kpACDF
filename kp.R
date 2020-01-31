@@ -80,8 +80,28 @@ TukeyHSD(lev.aov)
 sink()
                     
 ##ggplots
+df.na$los.j <- jitter(df.na$los, factor=0.2)
+df.na$lev.j <- jitter(df.na$lev, factor=0.2)
 
-ggplot(na.omit(df.E), aes(x=los,y=age,color=out.abrev)) + geom_point() + geom_smooth(method = lm)
+ggplot(df.na, aes(x=los.j,y=lev.j,color=out.abrev)) + geom_point() + geom_smooth(method=lm)
+
+##Jitter plots Dysphagia
+binomial_smooth <- function(...) {
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), ...)
+}
+
+tiff("inf.tiff", units="in", width=3, height=5, res=300)
+ggplot(df.na, aes(age, as.numeric(out.abrev)-1)) +
+  geom_jitter(height=.05) + binomial_smooth() + facet_grid(lev~.) +
+  theme(strip.text.y = element_text(size=12, face="bold"),
+        axis.title.x=element_text(size=12,face="bold"),
+        axis.title.y=element_text(size=12, face = "bold")) + 
+  xlab("Age") + ylab("Dysphagia Index")
+dev.off()
+
+ggplot(df.na, aes(los, as.numeric(out.abrev)-1)) +
+  geom_jitter(height=.05) + binomial_smooth() + theme_bw() +
+  xlab("Age") + ylab("Dysphagia Index")
 
 p <- ggplot(df.na, aes(x=age,y=levels)) + geom_point() + geom_smooth(method = "auto")
 facet(p,facet.by = "out.abrev")
